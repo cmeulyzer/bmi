@@ -37,11 +37,11 @@ function getPercentileComment() {
             return bmiUsMen >= bmi;
         });
         if (percentileIndex === -1) {
-            percentile = percentiles.reduce(function(a, b) {
+            percentile = percentiles.reduce(function (a, b) {
                 return Math.max(a, b);
             });
         } else {
-            percentile = percentiles[percentileIndex];            
+            percentile = percentiles[percentileIndex];
         }
     }
     if (female) {
@@ -49,15 +49,19 @@ function getPercentileComment() {
             return bmiUsWomen >= bmi;
         });
         if (percentileIndex === -1) {
-            percentile = Math.max(...percentiles);
+            percentile = getMaxOfArray(percentiles);
         } else {
-            percentile = percentiles[percentileIndex];            
+            percentile = percentiles[percentileIndex];
         }
     }
     console.log("age = " + age + ", indexAge = " + indexAge
         + ", percentileIndex = " + percentileIndex
         + ", percentile = " + percentile);
 
-    return " You are in the " + percentile + "th percentile. " 
-    + (100 - percentile) + "% of us " + gender + " have a higher BMI. <br> Source percentiles: \"Anthropometric Reference Data for Children and Adults: United States\" from <a href=\"https://www.cdc.gov/nchs/data/series/sr_03/sr03_039.pdf\">CDC DHHS</a>.";
+    return "<br>You are in the " + percentile + "th percentile. "
+        + (100 - percentile) + "% of us " + gender + " have a higher BMI. <br> Source percentiles: \"Anthropometric Reference Data for Children and Adults: United States\" from <a href=\"https://www.cdc.gov/nchs/data/series/sr_03/sr03_039.pdf\">CDC DHHS</a>.";
+}
+
+function getMaxOfArray(numArray) {
+    return Math.max.apply(null, numArray);
 }

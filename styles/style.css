@@ -3,6 +3,7 @@ body {
     margin: 0px;
     font-family: 'Rubik', sans-serif;
     color: rgb(82, 81, 81);
+    line-height: 2;
 }
 
 #main {
@@ -79,6 +80,14 @@ footer {
     #main > nav, #main > aside, header, footer {
         min-height: 50px;
     }
+
+    nav li {
+        float: left;
+    }
+    
+    header > h1 {
+        padding-top: 0px;
+    }
 }
 
 fieldset > div {
@@ -110,6 +119,10 @@ fieldset > div {
     color: black;
 }
 
+#btn span a {
+    color: white;
+}
+
  #result {
     text-align: center;
     margin: 0px;
@@ -124,6 +137,7 @@ fieldset > div {
 
  h1, h2 {
     font-family: 'Francois One', sans-serif;
+    line-height: normal;
  }
 
  h1 {
@@ -140,4 +154,35 @@ fieldset > div {
 legend{
     background-color: white;
     border: 1px solid grey;
+}
+
+.note {
+    padding: 2em 1em;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+a, a:visited {
+    text-decoration: none;
+    font-size: 1em;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+figure {
+    text-align: center;
 }

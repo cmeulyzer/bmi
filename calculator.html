@@ -9,13 +9,13 @@
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-6240583672286238",
-        enable_page_level_ads: true
-      });
-    </script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-6240583672286238",
+            enable_page_level_ads: true
+        });
+    </script> -->
 
     <title>Body Mass Index</title>
 </head>
@@ -31,7 +31,7 @@
                     <a href="index.html">Home</a>
                 </li>
                 <li>
-                    <a href="definition.html">Definition</a>
+                    <a href="aboutbmi.html">About BMI</a>
                 </li>
                 <li>
                     <a href="calculator.html">Calculator</a>
@@ -65,7 +65,7 @@
                         <input type="text" id="mass" required>
                     </div>
                     <div>
-                        <label for="height" id="lblHeight">Height in m</label>
+                        <label for="height" id="lblHeight">Height in meter</label>
                         <input type="text" id="height" required>
                     </div>
                 </fieldset>
@@ -73,7 +73,7 @@
                     <legend>Child aged 2 to 20 years</legend>
                     <div>
                         <label for="birthdate">Date of Birth:</label>
-                        <input type="date" name="birthdate" id="birthdate">
+                        <input type="date" name="birthdate" id="birthdate" placeholder="dd-mm-yyyy">
                     </div>
                     <div>
                         <input type="radio" name="gender" id="male">
@@ -92,6 +92,12 @@
                 <br> For children aged 2 to 20 years, worldwide and adults in the United States the date of birth and gender
                 can be filled out.
             </p>
+            <div class="note">
+                <strong>Note: </strong>This BMI calculator should not be used for clinical guidance and does not substitute professional
+                medical advice.
+                <br>The BMI can
+                <a href="aboutbmi.html">over-or underestimate</a> body fat in individuals.
+            </div>
             <div id="errors">
                 <ul></ul>
             </div>
@@ -102,7 +108,7 @@
         </aside>
     </div>
     <footer>
-        &copy 2017 BMIonline
+        &copy; 2017 BMIonline
     </footer>
     <script src="./scripts/moment.js"></script>
     <script src="./scripts/bmi.js"></script>

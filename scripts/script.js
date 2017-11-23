@@ -53,7 +53,7 @@ function diagnose() {
     if (ageInMonths >= 240.5 && ageInMonths < 252) {
         ageIndex = 218;
     } else {
-        ageIndex = ages.findIndex(function (a) {
+        ageIndex = ages.indexOf(function (a) {
             return a > parseFloat(ageInMonths);
         }) - 1;
     }
@@ -192,7 +192,7 @@ function showMsg(msg) {
 function getAgeInMonths() {
     var dateOfBirth = new Date(document.getElementById("birthdate").value);
     ageInMonths = moment(dateOfBirth).diff(moment(), 'months', true) * -1;
-    ageInMonths = Math.trunc(ageInMonths * 10) / 10;
+    ageInMonths = Math.floor(ageInMonths * 10) / 10;
 }
 
 function validateForm() {
