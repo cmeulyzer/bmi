@@ -1,0 +1,135 @@
+body {
+    background-color: white;
+    margin: 0px;
+    font-family: 'Rubik', sans-serif;
+}
+
+#main {
+    display: flex;
+    flex-flow: row;
+}
+
+nav {
+    flex: 1 6 20%;
+    /* border: solid; */
+    background-color: #f1f1f1;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+nav li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+/* Active selected nav link*/
+.active {
+    background-color: rgb(121, 121, 121);
+    color: white;
+}
+
+article {
+    padding: 0 1em 0 1em;
+    flex: 3 1 60%;
+    /* border: solid; */
+    min-height: 800px;
+}
+
+aside {
+    flex: 1 6 20%;
+    /* border: solid; */
+}
+
+header, footer {
+    background-color: rgb(121, 121, 121);
+    display: block;
+    /* border: solid; */
+    min-height: 100px;
+    padding-left: 1em;
+}
+
+@media all and (max-width: 640px) {
+    #main, #page {
+        flex-direction: column;
+    }
+
+    #main > nav, #main > article, #main > aside {
+        order: 0;
+    }
+
+    #main > nav, #main > aside, header, footer {
+        min-height: 50px;
+    }
+}
+
+fieldset > div {
+    padding: 0.5em 0 0.5em 0;
+}
+
+#btn {
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#btn > span {
+    display: inline-block;
+    padding: 10px;
+    background-color: grey;
+    width: 80px;
+    margin-right: 10px;
+}
+
+ #btn > span:hover {
+     cursor: pointer;
+     background-color: rgb(191, 167, 167);
+ }
+
+#btn a {
+    text-decoration: none;
+    color: black;
+}
+
+ #result {
+    text-align: center;
+    margin: 0px;
+    padding: 1em 0 1em 0;
+    background-image: linear-gradient(to bottom, rgb(219, 220, 164), rgba(145, 171, 41, 0.25));
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
+ }
+
+ #errors {
+     color: red;
+ }
+
+ h1, h2 {
+    font-family: 'Francois One', sans-serif;
+ }
+
+ h1 {
+     margin: 0px;
+     padding-top: 0.8em;
+     color: rgb(232, 229, 229);
+ }
+
+ fieldset {
+     background-color: rgb(224, 224, 243);
+     margin-top: 1em;
+ }
+
+legend{
+    background-color: white;
+    border: 1px solid grey;
+}

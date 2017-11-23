@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Francois+One|Rubik" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <title>Body Mass Index</title>
+</head>
+
+<body>
+    <header>
+        <h1>Body Mass Index (BMI)</h1>
+    </header>
+    <div id="main">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="definition.html">Definition</a></li>
+                <li><a href="calculator.html">Calculator</a></li>
+            </ul>
+        </nav>
+        <article>
+            <h2>BMI Calculator</h2>
+            <form>
+                <fieldset>
+                    <legend>Variation</legend>
+                    <div>
+                        <select>
+                            <option value="std">Standard</option>
+                            <option value="hk">Hong Kong</option>
+                            <option value="jp">Japan</option>
+                            <option value="sg">Singapore</option>
+                            <option value="us">United States</option>
+                            <option value="who">World Health Organisation</option>                            
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Mass and height</legend>
+                    <div>
+                        <input type="radio" name="setting" id="eu" value="eu" checked>Kg & m
+                        <input type="radio" name="setting" id="us" value="us">Lb & in
+                    </div>
+                    <div>
+                        <label for="mass" id="lblMass">Mass in Kg</label>
+                        <input type="text" id="mass" required>
+                    </div>
+                    <div>
+                        <label for="height" id="lblHeight">Height in m</label>
+                        <input type="text" id="height" required>
+                    </div>
+                </fieldset>
+                <fieldset id="additional">
+                    <legend>Child aged 2 to 20 years</legend>
+                    <div>
+                        <label for="birthdate">Date of Birth:</label>
+                        <input type="date" name="birthdate" id="birthdate">
+                    </div>
+                    <div>
+                        <input type="radio" name="gender" id="male">
+                        <label for="male">Male</label>
+                        <input type="radio" name="gender" id="female">
+                        <label for="female">Female</label>
+                    </div>
+                </fieldset>
+                <div id="btn">
+                    <span>Reset</span>
+                    <span>Calculate</span>
+                </div>
+            </form>
+            <p id="result">
+                Calculate the Body Mass Index by entering your weight and height.
+                <br> For children aged 2 to 20 years, worldwide and adults in the United States the date of birth and gender can be filled out.
+            </p>
+            <div id="errors">
+                <ul></ul>
+            </div>
+        </article>
+        <aside>
+            <!-- <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=christophm-20&marketplace=amazon&region=US&placement=1250126533&asins=1250126533&linkId=02ef79c776d986df261da49d7360284d&show_border=false&link_opens_in_new_window=true&price_color=333333&title_color=0066c0&bg_color=ffffff">
+            </iframe> -->
+        </aside>
+    </div>
+    <footer>
+        footer
+    </footer>
+    <script src="./scripts/moment.js"></script>
+    <script src="./scripts/bmi.js"></script>
+    <script src="./scripts/usBmi.js"></script>
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/nav.js"></script>
+
+</body>
+
+</html>
