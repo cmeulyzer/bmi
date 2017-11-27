@@ -6,7 +6,7 @@ var female;
 var ageInMonths;
 var bmi;
 var isValid;
-var variation = document.querySelector("select").value;
+var variation = "std";
 
 
 // Event handlers for 'Reset' and 'Calculate' buttons
@@ -15,19 +15,33 @@ document.querySelector("#btn span:first-child")
         location.reload();
     })
 document.querySelector("#btn span:nth-child(2)").addEventListener("click", diagnose);
+document.addEventListener('keypress', function (e) {
+    var key = e.which || e.keyCode;
+    if (key === 13) { // 13 is enter
+      diagnose();
+    }
+});
 
 // Event handlers for diplaying gender and age input
 document.querySelector("select").addEventListener("change", function () {
     variation = document.querySelector("select").value;
     if (variation === "std" || variation === "us") {
         if (variation === "us") {
-            document.querySelector("#additional legend").innerText = "Children and Adults: United States";
+            document.querySelector("#additional legend").innerText = "Males and females aged 20 and over";
+            document.getElementById("result").innerText
+                = "This calculator is for (us) males and females aged 20 and over only."
+                + "\n" + "For children (2 - 20 years) please select variation = standard."
+                + "Calculate the Body Mass Index by entering weight, height, date of birth & gender.";
         } else {
-            document.querySelector("#additional legend").innerText = "Child aged 2 to 20 years";
+            document.querySelector("#additional legend").innerText = "Only for children aged 2 to 20 years";
+            document.getElementById("result").innerText
+                = "Calculate the Body Mass Index by entering weight and height."
+                + "\n" + "For children (2-20 years) please enter the date of birth and gender.";
         }
         document.getElementById("additional").style.display = "block";
     } else {
         document.getElementById("additional").style.display = "none";
+        document.getElementById("result").innerText = "Calculate the Body Mass Index by entering weight and height.";
     }
 })
 
@@ -38,13 +52,12 @@ document.getElementById("eu").addEventListener('click', function () {
 })
 document.getElementById("us").addEventListener('click', function () {
     document.getElementById("lblMass").innerText = "Mass in Lb";
-    document.getElementById("lblHeight").innerText = "Height in inch";
+    document.getElementById("lblHeight").innerText = "Height in inches";
 })
 
 function diagnose() {
     isValid = true;
     getAgeInMonths();
-    console.log("Age in months: " + ageInMonths);
     validateForm();
     if (!isValid) return;
     calcBmi();
@@ -53,10 +66,10 @@ function diagnose() {
     if (ageInMonths >= 240.5 && ageInMonths < 252) {
         ageIndex = 218;
     } else {
-        ageIndex = ages.indexOf(function (a) {
-            return a > parseFloat(ageInMonths);
-        }) - 1;
+        var ageBmi = findAgeInBmiArr(ageInMonths);
+        ageIndex = ages.indexOf(ageBmi) - 1;
     }
+    console.log(ageIndex);
     message = updateMessage(message, ageIndex);
     showMsg(message);
 }
@@ -72,7 +85,6 @@ function calcBmi() {
 function updateMessage(message, ageIndex) {
     if (variation == "std") {
         if (female) {
-            console.log(female);
             if (bmi < bmiFemale[ageIndex][1]) {
                 message += "underweight";
             } else if (bmi >= bmiFemale[ageIndex][6] && bmi <= bmiFemale[ageIndex][8]) {
@@ -153,7 +165,7 @@ function updateMessage(message, ageIndex) {
     }
     if (variation == "sg") {
         if (bmi < 18.5) {
-            message = "Health Risk: (kg/m2) Risk of developing problems such as nutritional deficiency and osteoporosis";
+            message = "Health Risk: Risk of developing problems such as nutritional deficiency and osteoporosis";
         } else if (bmi >= 18.5 && bmi < 23) {
             message = "Health Risk: Low Risk (healthy range)";
         } else if (bmi >= 23 && bmi < 27.5) {
@@ -161,7 +173,6 @@ function updateMessage(message, ageIndex) {
         } else {
             message = "Health Risk: High risk of developing heart disease, high blood pressure, stroke, diabetes";
         }
-
     }
     if (variation == "us") {
         if (bmi < 18.5) {
@@ -189,10 +200,20 @@ function showMsg(msg) {
     document.getElementById("height").value = height;
 }
 
+function getBirthDate() {
+    day = parseInt(document.getElementById("birthDay").value);
+    month = parseInt(document.getElementById("birthMonth").value);
+    year = parseInt(document.getElementById("birthYear").value);
+    var birthDate = new Date(year, month, day);
+    console.log("birthdate: " + birthDate);
+    return birthDate;
+}
+
 function getAgeInMonths() {
-    var dateOfBirth = new Date(document.getElementById("birthdate").value);
+    var dateOfBirth = getBirthDate();
     ageInMonths = moment(dateOfBirth).diff(moment(), 'months', true) * -1;
     ageInMonths = Math.floor(ageInMonths * 10) / 10;
+    console.log("age in months: " + ageInMonths);
 }
 
 function validateForm() {
@@ -217,44 +238,60 @@ function validateForm() {
 
     female = document.getElementById("female").checked;
     male = document.getElementById("male").checked;
-    if (ageInMonths >= 24 && ageInMonths <= 240.5) {
-        if (!female && !male) {
-            isValid = false;
-            var genderMsg = document.createElement("li");
-            genderMsg.innerText = "Please select the gender.";
-            document.querySelector("#errors ul").appendChild(genderMsg);
+    if (variation !== "us") {
+        if (ageInMonths >= 24 && ageInMonths <= 240.5) {
+            if (!female && !male) {
+                isValid = false;
+                var genderMsg = document.createElement("li");
+                genderMsg.innerText = "Please select the gender.";
+                document.querySelector("#errors ul").appendChild(genderMsg);
+            }
         }
+
     }
-    var birthdate = new Date(document.getElementById("birthdate").value);
-    console.log(birthdate);
-    if (((male || female) && document.getElementById("birthdate").value == "") ||
-        birthdate > moment()) {
+
+    var birthdate = getBirthDate();
+    if (((male || female)
+        && !(birthdate instanceof Date && !isNaN(birthdate.valueOf())))
+        || birthdate > moment()
+        || noValidAgeRange()) {
         isValid = false;
         var dateMsg = document.createElement("li");
         dateMsg.innerText = "Please enter a valid date of birth.";
         document.querySelector("#errors ul").appendChild(dateMsg);
     }
 
-    if (document.getElementById("birthdate").value != "") {
-        if (!(birthdate instanceof Date && !isNaN(birthdate.valueOf()))) {
-            isValid = false;
-            var dateMsg = document.createElement("li");
-            dateMsg.innerText = "Please enter a valid date of birth.";
-            document.querySelector("#errors ul").appendChild(dateMsg);
-        }
+    function noValidAgeRange() {
         if (variation == "std") {
             var ageToTest = moment().diff(moment(birthdate), 'years', true);
             if (ageToTest < 2 || ageToTest >= 21) {
-                isValid = false;
-                var dateMsg = document.createElement("li");
-                dateMsg.innerText = "Please enter a valid date of birth. (age : 2 to 20 years only)";
-                document.querySelector("#errors ul").appendChild(dateMsg);
+                return true;
             }
-
+            return false;
         }
+        return false;
     }
 
+    if (variation === "us" && ageInMonths < 240) {
+        isValid = false;
+        var dateMsg = document.createElement("li");
+        dateMsg.innerText = "This calculator is for males and females aged 20 and over only. Please enter a valid date of birth.";
+        document.querySelector("#errors ul").appendChild(dateMsg);
+    }
 
+    if (variation === "us" && !(male || female)) {
+        isValid = false;
+        var genderMsg = document.createElement("li");
+        genderMsg.innerText = "Please select the gender.";
+        document.querySelector("#errors ul").appendChild(genderMsg);
+    }
 
 }
 
+function findAgeInBmiArr(aim) {
+    for (let i = 0; i < ages.length; i++) {
+        if (aim < ages[i]) {
+            return ages[i];
+        }
+    }
+}

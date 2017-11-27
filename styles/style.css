@@ -1,12 +1,18 @@
+html {
+    height: 100%;
+}
+
 body {
     background-color: white;
     margin: 0px;
     font-family: 'Rubik', sans-serif;
     color: rgb(82, 81, 81);
     line-height: 2;
+    height: 100%;
 }
 
 #main {
+    min-height: 80%;
     display: flex;
     flex-flow: row;
 }
@@ -15,6 +21,9 @@ nav {
     flex: 1 6 20%;
     /* border: solid; */
     background-color: #f1f1f1;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
 }
 
 nav ul {
@@ -46,7 +55,6 @@ article {
     padding: 0 1em 0 1em;
     flex: 3 1 60%;
     /* border: solid; */
-    min-height: 800px;
 }
 
 aside {
@@ -57,15 +65,24 @@ aside {
 header, footer {
     background-color: rgb(121, 121, 121);
     display: block;
-    /* border: solid; */
-    min-height: 100px;
-    padding-left: 1em;
+    /* border: solid; */ 
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    height: 10%;
 }
 
 footer {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;  
+    width: 100%;
+    height: 10%;
+    position: relative;
+    bottom: 0;
 }
 
 @media all and (max-width: 640px) {
@@ -142,7 +159,7 @@ fieldset > div {
 
  h1 {
      margin: 0px;
-     padding-top: 0.8em;
+     padding-left: 0.2em;
      color: rgb(232, 229, 229);
  }
 
@@ -162,9 +179,9 @@ legend{
     font-size: 0.8em;
 }
 
-a, a:visited {
+a {
     text-decoration: none;
-    font-size: 1em;
+    color: rgb(42, 42, 242);
 }
 
 table {
@@ -185,4 +202,20 @@ tr:nth-child(even) {
 
 figure {
     text-align: center;
+}
+
+fieldset:nth-child(2) label{
+    display: block;
+    float: left;
+    min-width: 125px;
+}
+
+fieldset:nth-child(3) label:first-child{
+    display: block;
+    float: left;
+    min-width: 125px;
+}
+
+fieldset > legend {
+    padding: 0 4px 0 4px;
 }

@@ -22,10 +22,10 @@ var usWomen = [
 ]
 
 function getPercentileComment() {
-    var age = Math.trunc(ageInMonths / 12);
-    var indexAge = usAgeRange.findIndex(function (number) {
-        return number > age;
-    }) - 1;
+    var ageRound10 = Math.floor(ageInMonths / 120) * 10;
+    console.log("ageRound10: " + ageRound10);
+    var indexAge = usAgeRange.indexOf(ageRound10);
+    console.log("indexAge: " + indexAge);
     var percentile;
     console.log("male " + male);
     female = document.getElementById("female").checked;
@@ -33,9 +33,9 @@ function getPercentileComment() {
     var gender;
     if (male) { gender = "men"; } else { gender = "women"; }
     if (male) {
-        var percentileIndex = usMen[indexAge].findIndex(function (bmiUsMen) {
-            return bmiUsMen >= bmi;
-        });
+        console.log(usMen[indexAge]);
+        var bmiUsMen = getBmiUsMen(bmi, usMen[indexAge]);
+        var percentileIndex = usMen[indexAge].indexOf(bmiUsMen);
         if (percentileIndex === -1) {
             percentile = percentiles.reduce(function (a, b) {
                 return Math.max(a, b);
@@ -45,21 +45,37 @@ function getPercentileComment() {
         }
     }
     if (female) {
-        var percentileIndex = usWomen[indexAge].findIndex(function (bmiUsWomen) {
-            return bmiUsWomen >= bmi;
-        });
+        var bmiUsWomen = getBmiUsWomen(bmi, usWomen[indexAge]);
+        var percentileIndex = usWomen[indexAge].indexOf(bmiUsWomen);
         if (percentileIndex === -1) {
             percentile = getMaxOfArray(percentiles);
         } else {
             percentile = percentiles[percentileIndex];
         }
     }
-    console.log("age = " + age + ", indexAge = " + indexAge
+    console.log("ageRound10 = " + ageRound10 + ", indexAge = " + indexAge
+        + "bmiUsMen = " + bmiUsMen
         + ", percentileIndex = " + percentileIndex
         + ", percentile = " + percentile);
 
     return "<br>You are in the " + percentile + "th percentile. "
         + (100 - percentile) + "% of us " + gender + " have a higher BMI. <br> Source percentiles: \"Anthropometric Reference Data for Children and Adults: United States\" from <a href=\"https://www.cdc.gov/nchs/data/series/sr_03/sr03_039.pdf\">CDC DHHS</a>.";
+}
+
+function getBmiUsMen(bmiToFind, arrBmiUsMenOfAge) {
+    for (let i = 0; i < arrBmiUsMenOfAge.length; i++) {
+        if (arrBmiUsMenOfAge[i] >= bmiToFind) {
+            return arrBmiUsMenOfAge[i];
+        }
+    }
+}
+
+function getBmiUsWomen(bmiToFind, arrBmiUsWomenOfAge) {
+    for (let i = 0; i < arrBmiUsWomenOfAge.length; i++) {
+        if (arrBmiUsWomenOfAge[i] >= bmiToFind) {
+            return arrBmiUsWomenOfAge[i];
+        }
+    }
 }
 
 function getMaxOfArray(numArray) {
